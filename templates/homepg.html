@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Mary's Home Page</title>
+  <style>
+      .wrapper{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  grid-auto-rows:minmax(100px, auto);
+  grid-gap:1em;
+  justify-items:stretch;
+  align-items:stretch;
+}
+.wrapper > div{
+  background:#eee;
+  padding:1em;
+}
+.wrapper > div:nth-child(odd){
+  background:#ddd;
+}
+.nav-bar{
+  /*align-self:start;*/
+  grid-column:1/4;
+  grid-row:1;
+}
+.resume{
+  /*justify-self:end;*/
+  grid-column:1;
+  grid-row:2/6;
+}
+.blog{
+  grid-column:2;
+  grid-row:2/6;
+  border:1px solid #333;
+}
+.contact{
+  grid-column:3;
+  grid-row:2/6;
+  border:1px solid #333;
+}
+input[type=text], input[type=email], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.footer{
+  grid-column:1/4;
+  grid-row:6;
+  border:1px solid #333;
+}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="nav-bar">Mary's Website</div>
+    <div class="resume">
+      <a href="/resume">Click Here To Go To The Resume Page</a>
+    </div>
+    <div class="blog">
+      <a href="/blog">Click Here To Go To The Blog Page</a>
+    </div>
+    <div class="contact">
+      <h3>Fill Out And Submit The Form Below To Contact Me</h3>
+      
+      <!--Email subscription Form -->
+      
+    <form method="post" action="{% url 'subscription' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Enter Name">
+        <input type="email" name="email" placeholder="Enter Email">
+        <input type="text" name="subject" placeholder="Enter Subject">
+        <textarea type="textarea" id="body" name="body" placeholder="Write your message..." style="height:100px"></textarea>
+        <input type="submit" value="Submit">
+      </div>
+
+    </form>
+
+    <!-- message if email is sent -->
+  {% if messages %}
+    {% for message in messages %}
+    <div class="my-5 alert alert-success">
+      <h5 class="m-0">
+            {{ message }}
+        </h5>
+      </div>
+    {% endfor %}
+  {% endif %}
+      
+
+    </div>
+    <div class="footer">Technologies used: Python, Django, HTML, CSS, and Heroku</div>
+    
+  </div>
+</body>
+</html>
